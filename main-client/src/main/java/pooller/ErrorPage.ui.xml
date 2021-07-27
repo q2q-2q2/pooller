@@ -1,0 +1,11 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+>
+    <g:HTMLPanel>
+        <center>
+            <h1>Oops!, Something goes wrong.</h1>
+            <g:InlineHTML ui:field="message"/>
+        </center>
+    </g:HTMLPanel>
+</ui:UiBinder>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_3.dtd">
+<Configure id="wac" class="org.eclipse.jetty.webapp.WebAppContext">
+    <New id="sendThreadPools" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg><Ref refid="wac"/></Arg>
+        <Arg>thread/pool/mailsender</Arg>
+        <Arg>
+            <New class="org.eclipse.jetty.util.thread.QueuedThreadPool">
+                <Set name="minThreads">10</Set>
+                <Set name="maxThreads">200</Set>
+                <Call name="start"/>
+            </New>
+        </Arg>
+    </New>
+    <New id="mail" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg><Ref refid="wac"/></Arg>
+        <Arg>mail/MailSession</Arg>
+        <Arg>
+            <New class="org.eclipse.jetty.jndi.factories.MailSessionReference">
+                <Set name="user">fast-po</Set>
+                <Set name="password">Ycy_VmxQwj7dh9Obcdfx</Set>
+                <Set name="properties">
+                    <New class="java.util.Properties">
+                        <Put name="mail.smtp.host">smtp.rambler.ru</Put>
+                        <Put name="mail.smtp.port">465</Put>
+                        <Put name="mail.from">fast-po@rambler.ru</Put>
+                        <Put name="mail.debug">true</Put>
+                        <Put name="mail.smtp.auth">true</Put>
+                        <Put name="mail.smtp.ssl.enable">true</Put>
+                        <Put name="mail.smtp.ssl.trust">*</Put>
+<!--                        <Put name="mail.smtp.starttls.enable">true</Put>-->
+                    </New>
+                </Set>
+            </New>
+        </Arg>
+    </New>
+    <New id="ds" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg></Arg>
+        <Arg>jdbc/PoolingDB</Arg>
+<!--        <Arg>-->
+<!--            <New class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
+<!--                <Set name="driverClass">org.h2.Driver</Set>-->
+<!--                <Set name="jdbcUrl">jdbc:h2:~/main-db</Set>-->
+<!--                <Set name="user">sa</Set>-->
+<!--                <Set name="password">sa</Set>-->
+<!--                <Set name="minPoolSize">20</Set>-->
+<!--                <Set name="maxPoolSize">200</Set>-->
+<!--                <Set name="autoCommitOnClose">true</Set>-->
+<!--            </New>-->
+<!--        </Arg>-->
+                <Arg>
+                    <New class="com.mchange.v2.c3p0.ComboPooledDataSource">
+                        <Set name="driverClass">org.postgresql.Driver</Set>
+                        <Set name="jdbcUrl">jdbc:postgresql://localhost:5432/postgres</Set>
+                        <Set name="user">postgres</Set>
+                        <Set name="password">5pnDTZ2(%wM~</Set>
+                    </New>
+                </Arg>
+    </New>
+    <New id="demodata" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg><Ref refid="wac"/></Arg>
+        <Arg>parameter/generate-demodata</Arg>
+        <Arg>
+            <New class="java.lang.String">
+                <Arg type="String">true</Arg>
+            </New>
+        </Arg>
+    </New>
+    <Call name="setInitParameter">
+        <Arg>org.eclipse.jetty.servlet.Default.useFileMappedBuffer</Arg>
+        <Arg>false</Arg>
+    </Call>
+    <Set name="contextPath">/</Set>
+    <Set name="war"><Property name="jetty.webapps" default="."/>/main-server-1.0-SNAPSHOT.war</Set>
+</Configure>

@@ -1,0 +1,80 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:cellview="urn:import:com.google.gwt.user.cellview.client" xmlns:pooller="urn:import:pooller.ui">
+    <g:DockLayoutPanel>
+        <g:west size="340">
+            <g:DockLayoutPanel>
+                <g:north size="34">
+                    <g:HorizontalPanel horizontalAlignment="RIGHT">
+                        <g:Button ui:field="addBtn" text="Start pooling!"/>
+                        <g:Button ui:field="editPoolBtn" text="Edit"/>
+                    </g:HorizontalPanel>
+                </g:north>
+                <g:center>
+                    <cellview:DataGrid ui:field="poolGrid"/>
+                </g:center>
+                <g:south size="40">
+                    <cellview:SimplePager location="CENTER" ui:field="poolGridPager" display="{poolGrid}" pageSize="20"
+                                          rangeLimited="false"/>
+                </g:south>
+            </g:DockLayoutPanel>
+        </g:west>
+        <g:center>
+            <g:TabLayoutPanel barHeight="3" barUnit="EM">
+                <g:tab>
+                    <g:header>Description</g:header>
+                    <g:DockLayoutPanel>
+                        <g:center>
+                            <pooller:MetaInfoEditor ui:field="poolInfoPanel"/>
+                        </g:center>
+                    </g:DockLayoutPanel>
+                </g:tab>
+                <g:tab>
+                    <g:header>Questions</g:header>
+                    <g:DockLayoutPanel>
+                        <g:center>
+                            <g:DockLayoutPanel>
+                                <g:north size="40">
+                                    <g:HorizontalPanel horizontalAlignment="ALIGN_RIGHT">
+                                        <g:Button ui:field="addQuestionBtn" text="Add" enabled="false"/>
+                                        <g:Button ui:field="editQuestionBtn" text="Edit" enabled="false"/>
+                                        <g:Button ui:field="removeQuestionBtn" text="Remove" enabled="false"/>
+                                    </g:HorizontalPanel>
+                                </g:north>
+                                <g:center>
+                                    <cellview:DataGrid ui:field="questionsGrid"/>
+                                </g:center>
+                            </g:DockLayoutPanel>
+                        </g:center>
+                        <g:east size="400">
+                            <g:DockLayoutPanel>
+                                <g:north size="40">
+                                    <g:HorizontalPanel horizontalAlignment="ALIGN_RIGHT">
+                                        <g:Button ui:field="addQuestionVariantBtn" text="Add" enabled="false"/>
+                                        <g:Button ui:field="editQuestionVariantBtn" text="Edit" enabled="false"/>
+                                        <g:Button ui:field="deleteQuestionVariantBtn" text="Remove" enabled="false"/>
+                                    </g:HorizontalPanel>
+                                </g:north>
+                                <g:center>
+                                    <cellview:DataGrid ui:field="variantsGrid" width="400px" height="350px"/>
+                                </g:center>
+                            </g:DockLayoutPanel>
+                        </g:east>
+                    </g:DockLayoutPanel>
+                </g:tab>
+                <g:tab>
+                    <g:header>Company</g:header>
+                    <g:HTMLPanel>
+                        <g:Label text="abc"/>
+                    </g:HTMLPanel>
+                </g:tab>
+                <g:tab>
+                    <g:header>Invitations</g:header>
+                    <g:HTMLPanel>
+                        <g:Label text="abc"/>
+                    </g:HTMLPanel>
+                </g:tab>
+            </g:TabLayoutPanel>
+        </g:center>
+    </g:DockLayoutPanel>
+</ui:UiBinder>

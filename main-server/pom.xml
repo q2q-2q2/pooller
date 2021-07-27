@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>pooller</groupId>
+        <artifactId>main</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>main-server</artifactId>
+    <packaging>war</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>main-shared</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-servlet</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.5.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>5.4.19.Final</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.mchange</groupId>
+                    <artifactId>c3p0</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.4.19.Final</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>5.4.19.Final</version>
+            <scope>provided</scope>
+            <!--      <exclusions>-->
+            <!--        <exclusion>-->
+            <!--          <groupId>cglib</groupId>-->
+            <!--          <artifactId>cglib</artifactId>-->
+            <!--        </exclusion>-->
+            <!--        <exclusion>-->
+            <!--          <groupId>dom4j</groupId>-->
+            <!--          <artifactId>dom4j</artifactId>-->
+            <!--        </exclusion>-->
+            <!--      </exclusions>-->
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.2-api -->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>2.2</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/apache-jstl -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>apache-jstl</artifactId>
+            <version>9.4.31.v20200723</version>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <configuration>
+                        <scanIntervalSeconds>1</scanIntervalSeconds>
+                        <webApp>
+                            <extraClasspath>${basedir}/../main-shared/target/classes/</extraClasspath>
+                        </webApp>
+                        <contextXml>${basedir}/src/main/jettyconf/context.xml</contextXml>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <configuration>
+                        <addWarDependenciesInClassloader>false</addWarDependenciesInClassloader>
+                        <path>/</path>
+                        <uriEncoding>UTF-8</uriEncoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.8</version>
+                    <configuration>
+                        <excludeGroupIds>org.eclipse.jetty,javax.servlet,pooller</excludeGroupIds>
+                        <includeScope>provided</includeScope>
+                        <outputDirectory>${project.build.directory}/ext-libs</outputDirectory>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <!-- XXX: We want to exclude main-client from 'env-dev' profile, Maven forces us to make a 'env-prod' profile -->
+            <id>env-prod</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>main-client</artifactId>
+                    <version>${project.version}</version>
+                    <type>war</type>
+                    <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>maker-client</artifactId>
+                    <version>${project.version}</version>
+                    <type>war</type>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>env-dev</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>dev</value>
+                </property>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.eclipse.jetty</groupId>
+                            <artifactId>jetty-maven-plugin</artifactId>
+                            <dependencies>
+                                <dependency>
+                                    <groupId>com.google.gwt</groupId>
+                                    <artifactId>gwt-servlet</artifactId>
+                                    <version>2.9.0</version>
+                                </dependency>
+                                <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+                                <dependency>
+                                    <groupId>org.postgresql</groupId>
+                                    <artifactId>postgresql</artifactId>
+                                    <version>42.2.16</version>
+                                </dependency>
+                                <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+                                <dependency>
+                                    <groupId>com.h2database</groupId>
+                                    <artifactId>h2</artifactId>
+                                    <version>1.4.200</version>
+                                </dependency>
+                                <!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+                                <!--                                <dependency>-->
+                                <!--                                    <groupId>postgresql</groupId>-->
+                                <!--                                    <artifactId>postgresql</artifactId>-->
+                                <!--                                    <version>9.1-901-1.jdbc4</version>-->
+                                <!--                                </dependency>-->
+
+                                <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
+                                <dependency>
+                                    <groupId>com.mchange</groupId>
+                                    <artifactId>c3p0</artifactId>
+                                    <version>0.9.5.5</version>
+                                </dependency>
+                                <dependency>
+                                    <groupId>org.hibernate</groupId>
+                                    <artifactId>hibernate-c3p0</artifactId>
+                                    <version>5.4.19.Final</version>
+                                    <exclusions>
+                                        <exclusion>
+                                            <groupId>com.mchange</groupId>
+                                            <artifactId>c3p0</artifactId>
+                                        </exclusion>
+                                    </exclusions>
+                                </dependency>
+                                <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+                                <dependency>
+                                    <groupId>org.hibernate</groupId>
+                                    <artifactId>hibernate-core</artifactId>
+                                    <version>5.4.19.Final</version>
+                                </dependency>
+                                <dependency>
+                                    <groupId>org.hibernate</groupId>
+                                    <artifactId>hibernate-entitymanager</artifactId>
+                                    <version>5.4.19.Final</version>
+                                    <!--      <exclusions>-->
+                                    <!--        <exclusion>-->
+                                    <!--          <groupId>cglib</groupId>-->
+                                    <!--          <artifactId>cglib</artifactId>-->
+                                    <!--        </exclusion>-->
+                                    <!--        <exclusion>-->
+                                    <!--          <groupId>dom4j</groupId>-->
+                                    <!--          <artifactId>dom4j</artifactId>-->
+                                    <!--        </exclusion>-->
+                                    <!--      </exclusions>-->
+                                </dependency>
+                                <dependency>
+                                    <groupId>javax.persistence</groupId>
+                                    <artifactId>javax.persistence-api</artifactId>
+                                    <version>2.2</version>
+                                    <type>pom</type>
+                                </dependency>
+                                <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+                                <dependency>
+                                    <groupId>javax.mail</groupId>
+                                    <artifactId>javax.mail-api</artifactId>
+                                    <version>1.6.2</version>
+                                </dependency>
+                                <!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+                                <dependency>
+                                    <groupId>com.sun.mail</groupId>
+                                    <artifactId>javax.mail</artifactId>
+                                    <version>1.6.0</version>
+                                </dependency>
+
+                            </dependencies>
+                            <configuration>
+                                <systemProperties>
+                                    <systemProperty>
+                                        <name>mail.session.user</name>
+                                        <value>${mail.user}</value>
+                                    </systemProperty>
+                                    <systemProperty>
+                                        <name>mail.session.password</name>
+                                        <value>${mail.password}</value>
+                                    </systemProperty>
+                                </systemProperties>
+                                <webApp>
+                                    <resourceBases>
+                                        <resourceBase>${basedir}/src/main/webapp</resourceBase>
+                                        <resourceBase>${basedir}/../target/gwt/launcherDir/</resourceBase>
+                                    </resourceBases>
+                                </webApp>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.tomcat.maven</groupId>
+                            <artifactId>tomcat7-maven-plugin</artifactId>
+                            <configuration>
+                                <contextFile>${basedir}/src/main/tomcatconf/context.xml</contextFile>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
+
+    <repositories>
+        <repository>
+            <id>maven-central</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+    </repositories>
+</project>

@@ -1,0 +1,28 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+>
+    <ui:style>
+        .largeText {
+            font-size: large;
+        }
+    </ui:style>
+
+    <g:HTMLPanel>
+        <center>
+            <h1>
+                <g:InlineHTML ui:field="headerText"/>
+            </h1>
+            <g:HTMLPanel width="50em">
+                <g:HTMLPanel>Total questions
+                    <g:InlineHTML ui:field="questionsCount"/>
+                </g:HTMLPanel>
+                <g:HTML ui:field="description" addStyleNames="{style.largeText}"/>
+                <g:HorizontalPanel addStyleNames="{style.largeText}">
+                    <g:TextBox ui:field="email" width="20em"/>
+                    <g:Button ui:field="startBtn" text="START"/>
+                </g:HorizontalPanel>
+            </g:HTMLPanel>
+        </center>
+    </g:HTMLPanel>
+</ui:UiBinder>

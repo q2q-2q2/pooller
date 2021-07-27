@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <resource-ref>
+        <description>Rates DataSource Reference</description>
+        <res-ref-name>jdbc/PoolingDB</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+
+    <resource-ref>
+        <description>GMail session</description>
+        <res-ref-name>mail/MailSession</res-ref-name>
+        <res-type>javax.mail.Session</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+
+    <resource-ref>
+        <description>Sender executor</description>
+        <res-ref-name>thread/pool/mailsender</res-ref-name>
+        <res-type>java.util.concurrent.Executor</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+
+    <context-param>
+        <param-name>dropDatabase</param-name>
+        <param-value>false</param-value>
+    </context-param>
+
+    <listener>
+        <description>App initializer</description>
+        <listener-class>pooller.InitializeAppListener</listener-class>
+    </listener>
+
+<!--    <listener>-->
+<!--        <description>DemoData initializer</description>-->
+<!--        <listener-class>pooller.GenerateDemoDataListener</listener-class>-->
+<!--    </listener>-->
+
+    <!-- Servlets -->
+    <servlet>
+        <servlet-name>greetServlet</servlet-name>
+        <servlet-class>pooller.GreetingServiceImpl</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>poolRepository</servlet-name>
+        <servlet-class>pooller.repository.PoolRepoServiceImpl</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>surviveInvitation</servlet-name>
+        <servlet-class>pooller.repository.PoolingSurviveServiceIml</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>survive-storage</servlet-name>
+        <servlet-class>pooller.repository.SurviveRepoServiceImpl</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>survive-storage</servlet-name>
+        <url-pattern>/app/survive-storage</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>poolRepository</servlet-name>
+        <url-pattern>/maker/pooling-storage</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>surviveInvitation</servlet-name>
+        <url-pattern>/app/pooling-survive</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>poolRepository</servlet-name>
+        <url-pattern>/app/pooling-storage</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>greetServlet</servlet-name>
+        <url-pattern>/app/greet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>main-page</servlet-name>
+        <jsp-file>/web-app-director.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>main-page</servlet-name>
+        <url-pattern>/p/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>main-page</servlet-name>
+        <url-pattern>/pi/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>main-page</servlet-name>
+        <url-pattern>/m/*</url-pattern>
+    </servlet-mapping>
+
+    <security-role>
+        <description>Give answers</description>
+        <role-name>survivor</role-name>
+    </security-role>
+
+    <security-role>
+        <description>makes poolling</description>
+        <role-name>maker</role-name>
+    </security-role>
+
+    <security-role>
+        <description>registered user</description>
+        <role-name>registered</role-name>
+    </security-role>
+
+    <security-role>
+        <description>all</description>
+        <role-name>_ALL_</role-name>
+    </security-role>
+
+    <!-- Default page to serve -->
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+</web-app>
