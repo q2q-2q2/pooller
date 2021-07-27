@@ -18,7 +18,7 @@
         <Arg>
             <New class="org.eclipse.jetty.jndi.factories.MailSessionReference">
                 <Set name="user">fast-po</Set>
-                <Set name="password">Ycy_VmxQwj7dh9Obcdfx</Set>
+                <Set name="password"></Set>
                 <Set name="properties">
                     <New class="java.util.Properties">
                         <Put name="mail.smtp.host">smtp.rambler.ru</Put>
@@ -53,7 +53,7 @@
                         <Set name="driverClass">org.postgresql.Driver</Set>
                         <Set name="jdbcUrl">jdbc:postgresql://localhost:5432/postgres</Set>
                         <Set name="user">postgres</Set>
-                        <Set name="password">5pnDTZ2(%wM~</Set>
+                        <Set name="password"></Set>
                     </New>
                 </Arg>
     </New>
