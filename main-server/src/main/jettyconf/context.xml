@@ -17,8 +17,8 @@
         <Arg>mail/MailSession</Arg>
         <Arg>
             <New class="org.eclipse.jetty.jndi.factories.MailSessionReference">
-                <Set name="user">fast-po</Set>
-                <Set name="password"></Set>
+                <Set name="user"><Env name="COM_ACME_HTTP_PORT"/>fast-po</Set>
+                <Set name="password"><Env name="COM_ACME_HTTP_PORT"/></Set>
                 <Set name="properties">
                     <New class="java.util.Properties">
                         <Put name="mail.smtp.host">smtp.rambler.ru</Put>
@@ -51,9 +51,9 @@
                 <Arg>
                     <New class="com.mchange.v2.c3p0.ComboPooledDataSource">
                         <Set name="driverClass">org.postgresql.Driver</Set>
-                        <Set name="jdbcUrl">jdbc:postgresql://localhost:5432/postgres</Set>
-                        <Set name="user">postgres</Set>
-                        <Set name="password"></Set>
+                        <Set name="jdbcUrl"><Env name="PG_URL"/></Set>
+                        <Set name="user"><Env name="POOLL_DB_USER"/></Set>
+                        <Set name="password"><Env name="POOLL_DB_PASS"/></Set>
                     </New>
                 </Arg>
     </New>
