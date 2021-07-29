@@ -45,6 +45,18 @@
                     <launcherDir>${project.build.directory}/gwt/launcherDir</launcherDir>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.jelastic</groupId>
+                <artifactId>jelastic-maven-plugin</artifactId>
+                <version>1.9.3</version>
+                <configuration>
+                    <apiToken>${env.JELASTIC_DEPLOY_CODE}</apiToken>
+                    <artifact>pooller:main-server</artifact> <!--artifact to be deployed-->
+                    <environment>env-2697447</environment> <!--name of a target Jelastic environment-->
+                    <comment>maven</comment> <!--custom comment, if needed-->
+                    <api_hoster>app.jelastic.regruhosting.ru</api_hoster> <!--domain name of your platform-->
+                </configuration>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -106,4 +118,16 @@
         <module>main-shared</module>
         <module>main-server</module>
     </modules>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>sonatype-oss-public</id>
+            <url>https://oss.sonatype.org/content/groups/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

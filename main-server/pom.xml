@@ -21,25 +21,21 @@
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
         <dependency>
             <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
             <version>0.9.5.5</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-c3p0</artifactId>
             <version>5.4.19.Final</version>
-            <scope>provided</scope>
             <exclusions>
                 <exclusion>
                     <groupId>com.mchange</groupId>
@@ -52,13 +48,11 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>5.4.19.Final</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>5.4.19.Final</version>
-            <scope>provided</scope>
             <!--      <exclusions>-->
             <!--        <exclusion>-->
             <!--          <groupId>cglib</groupId>-->
@@ -89,7 +83,6 @@
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
             <version>1.6.0</version>
-            <scope>provided</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
         <dependency>
@@ -100,14 +93,12 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <scope>provided</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/apache-jstl -->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>apache-jstl</artifactId>
             <version>9.4.31.v20200723</version>
-            <scope>provided</scope>
         </dependency>
 
     </dependencies>
