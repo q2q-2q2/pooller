@@ -49,18 +49,19 @@ public class PoolRepoServiceImpl extends AbstractEntityRemoteServiceServlet impl
     public PageDto<PoolMetaInfoDto> getPage(long start, int size) {
         EntityManager em = emf.createEntityManager();
         Long count = em.createQuery("select count(p.id) from PoolMainInfo p", Long.class).getSingleResult();
+        em.close();
+        em = emf.createEntityManager();
         List<PoolMetaInfoDto> list = em.createQuery("select p from PoolMainInfo p", PoolMainInfo.class)
                 .setMaxResults(size)
-                .setFirstResult((int) start)
-                .getResultStream()
+                .setFirstResult((int) start).getResultList().stream()
                 .map(PoolMetaInfoAdapter.I::toDto)
                 .collect(Collectors.toList());
-        em.close();
         PageDto<PoolMetaInfoDto> page = new PageDto<>();
         page.setData(list);
         page.setStart(start);
         page.setSize(size);
         page.setCount(count);
+        em.close();
         return page;
     }
 

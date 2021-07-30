@@ -52,8 +52,8 @@
                     <New class="com.mchange.v2.c3p0.ComboPooledDataSource">
                         <Set name="driverClass">org.postgresql.Driver</Set>
                         <Set name="jdbcUrl"><Env name="PG_URL"/></Set>
-                        <Set name="user"><Env name="POOLL_DB_USER"/></Set>
-                        <Set name="password"><Env name="POOLL_DB_PASS"/></Set>
+                        <Set name="user"><Env name="PG_USER"/></Set>
+                        <Set name="password"><Env name="PG_PASS"/></Set>
                     </New>
                 </Arg>
     </New>
